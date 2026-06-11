@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-<link rel="apple-touch-icon" href="https://tudominio.com/logo.png">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Colores basados en tu logo */
             --primary: #18989b; 
             --primary-dark: #127a7c;
             --accent: #37b7b1;
@@ -33,7 +31,6 @@
             line-height: 1.6;
         }
 
-        /* Contenedor Principal Adaptable */
         .wrapper {
             display: flex;
             justify-content: center;
@@ -44,14 +41,13 @@
 
         .app-card { 
             width: 100%;
-            max-width: 600px; /* Ancho cómodo para lectura en PC */
+            max-width: 600px; 
             background: var(--card-bg); 
             padding: 40px; 
             border-radius: 24px; 
             box-shadow: 0 15px 35px rgba(24, 152, 155, 0.12);
         }
 
-        /* Logo y Títulos */
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -79,7 +75,6 @@
             font-weight: 400;
         }
 
-        /* Formulario */
         .form-group {
             margin-bottom: 25px;
         }
@@ -115,14 +110,14 @@
         }
 
         select:focus, input:focus {
-            border-color: var(--primary);
+            border-color: #18989b;
             box-shadow: 0 0 0 4px rgba(24, 152, 155, 0.1);
         }
 
         button { 
             width: 100%; 
             padding: 18px; 
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: linear-gradient(135deg, #18989b, var(--accent));
             color: white; 
             border: none; 
             cursor: pointer; 
@@ -144,7 +139,6 @@
             transform: translateY(0);
         }
 
-        /* Resultado */
         .result-box { 
             margin-top: 30px; 
             padding: 25px; 
@@ -157,10 +151,21 @@
 
         .result-box .val {
             display: block;
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--primary-dark);
-            margin: 10px 0;
+            margin: 5px 0;
+        }
+        
+        .medida-casera-box {
+            margin-top: 15px; 
+            font-size: 1.1rem; 
+            color: var(--primary-dark); 
+            background: rgba(55, 183, 177, 0.15); 
+            padding: 12px; 
+            border-radius: 12px;
+            font-weight: 600;
+            border: 1px dashed var(--accent);
         }
 
         @keyframes slideUp {
@@ -168,7 +173,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsivo para móviles */
         @media (max-width: 480px) {
             .app-card {
                 padding: 25px 20px;
@@ -189,7 +193,7 @@
 <div class="wrapper">
     <div class="app-card">
         <div class="header">
-            <img src="logo.png" alt="Logo Luis Bertó" class="logo">
+            <img src="logo.png" alt="Logo Luis Bertó" class="logo" onerror="this.src='https://static.wixstatic.com/media/893c52_04547285226c483a8b2734b42b9195f2~mv2.png'">
             <h1>Calculadora de Intercambios</h1>
             <p>MiDietaIntuitiva by Luis Bertó</p>
         </div>
@@ -198,13 +202,13 @@
             <label for="grupo">1. Grupo de alimento</label>
             <select id="grupo" onchange="actualizarAlimentos()">
                 <option value="">-- Elige un grupo --</option>
-                <option value="almidones">🌾 Almidones / Hidratos (AL)</option>
-                <option value="frutas">🍎 Frutas (FR)</option>
-                <option value="verduras">🥦 Verduras y Hortalizas</option>
-                <option value="lacteos">🥛 Lácteos y Alternativas</option>
-                <option value="proteinas_muy_magras">🥩 Proteínas Muy Magras (PMM)</option>
-                <option value="proteinas_magras">🥩 Proteínas Magras (PM)</option>
-                <option value="grasas">🥑 Grasas Saludables (GR)</option>
+                <option value="almidones">🌾 Almidones y Cereales</option>
+                <option value="frutas">🍎 Frutas</option>
+                <option value="lacteos">🥛 Lácteos Desnatados / Bajos en grasa</option>
+                <option value="verduras">🥦 Verduras sin Almidón</option>
+                <option value="proteina_magra">🥩 Proteína Magra</option>
+                <option value="proteina_media">🥩 Proteína de Grasa Media</option>
+                <option value="grasas">🥑 Grasas</option>
             </select>
         </div>
 
@@ -217,7 +221,7 @@
 
         <div class="form-group">
             <label for="intercambios">3. Número de raciones (Intercambios)</label>
-            <input type="number" id="intercambios" min="0.25" step="0.25" placeholder="Ej: 2">
+            <input type="number" id="intercambios" min="0.25" step="0.25" placeholder="Ej: 2 o 1.5">
         </div>
 
         <div class="form-group">
@@ -230,9 +234,11 @@
         <button onclick="calcularEquivalencia()">Calcular Equivalencia</button>
 
         <div class="result-box" id="resultado">
-            <span id="texto-pre" style="font-size: 0.9rem; color: var(--text-light);">Debes consumir:</span>
+            <span style="font-size: 0.9rem; color: var(--text-light);">Peso exacto:</span>
             <span class="val" id="valor-resultado"></span>
             <span id="texto-post" style="font-weight: 600;"></span>
+            
+            <div class="medida-casera-box" id="medida-casera"></div>
         </div>
     </div>
 </div>
@@ -240,82 +246,72 @@
 <script>
     const baseDatos = {
         almidones: [
-            { nombre: "Pan (trigo, centeno, integral, molde)", cantidad: 30, unidad: "g" },
-            { nombre: "Tortilla de trigo o maíz", cantidad: 30, unidad: "g" },
-            { nombre: "Pan de pita", cantidad: 30, unidad: "g" },
-            { nombre: "Biscotes o tostadas crujientes", cantidad: 20, unidad: "g" },
-            { nombre: "Avena (en copos, cruda)", cantidad: 30, unidad: "g" },
-            { nombre: "Arroz blanco o integral (cocido)", cantidad: 70, unidad: "g" },
-            { nombre: "Pasta o fideos (cocidos)", cantidad: 70, unidad: "g" },
-            { nombre: "Quinoa (cocida)", cantidad: 70, unidad: "g" },
-            { nombre: "Cereal de desayuno (sin azúcar)", cantidad: 25, unidad: "g" },
-            { nombre: "Patata o Boniato (cocidos)", cantidad: 100, unidad: "g" },
-            { nombre: "Lentejas, garbanzos, alubias (cocidos)", cantidad: 90, unidad: "g" },
-            { nombre: "Guisantes o maíz dulce", cantidad: 80, unidad: "g" },
-            { nombre: "Harina (trigo, avena, garbanzo)", cantidad: 20, unidad: "g" }
+            { nombre: "Pan de molde (blanco, integral, centeno)", peso: 28, unidad: "g", cValor: 1, cTexto: "rebanada(s)" },
+            { nombre: "Pan de hamburguesa o perrito", peso: 21, unidad: "g", cValor: 0.5, cTexto: "unidad(es)" },
+            { nombre: "Pan de pita (15 cm)", peso: 28, unidad: "g", cValor: 0.5, cTexto: "unidad(es)" },
+            { nombre: "Bagel", peso: 28, unidad: "g", cValor: 0.25, cTexto: "unidad(es) grande(s)" },
+            { nombre: "Tortilla de maíz o trigo (15 cm)", peso: 28, unidad: "g", cValor: 1, cTexto: "unidad(es) pequeña(s)" },
+            { nombre: "Arroz (blanco o integral, cocido)", peso: 50, unidad: "g", cValor: 0.333, cTexto: "taza(s)" },
+            { nombre: "Pasta (macarrones, espaguetis, cocida)", peso: 45, unidad: "g", cValor: 0.333, cTexto: "taza(s)" },
+            { nombre: "Avena o sémola (cocida)", peso: 115, unidad: "g", cValor: 0.5, cTexto: "taza(s)" },
+            { nombre: "Quinoa o cuscús (cocido)", peso: 55, unidad: "g", cValor: 0.333, cTexto: "taza(s)" },
+            { nombre: "Cereales secos (sin azúcar)", peso: 20, unidad: "g", cValor: 0.75, cTexto: "taza(s)" },
+            { nombre: "Papa / Patata (hervida/horno)", peso: 85, unidad: "g", cValor: 0.5, cTexto: "taza(s) o ud(s) pequeña(s)" },
+            { nombre: "Batata / Boniato", peso: 100, unidad: "g", cValor: 0.5, cTexto: "taza(s)" },
+            { nombre: "Maíz en granos", peso: 80, unidad: "g", cValor: 0.5, cTexto: "taza(s)" },
+            { nombre: "Lentejas, frijoles, garbanzos (cocidos)", peso: 90, unidad: "g", cValor: 0.5, cTexto: "taza(s)" }
         ],
         frutas: [
-            { nombre: "Manzana, pera, naranja, melocotón", cantidad: 120, unidad: "g" },
-            { nombre: "Plátano", cantidad: 90, unidad: "g" },
-            { nombre: "Fresas, frambuesas, moras", cantidad: 150, unidad: "g" },
-            { nombre: "Arándanos", cantidad: 100, unidad: "g" },
-            { nombre: "Uvas o Cerezas", cantidad: 80, unidad: "g" },
-            { nombre: "Kiwi, mandarina, ciruela, higo", cantidad: 100, unidad: "g" },
-            { nombre: "Melón o Sandía", cantidad: 200, unidad: "g" },
-            { nombre: "Mango", cantidad: 80, unidad: "g" },
-            { nombre: "Granada (granos)", cantidad: 80, unidad: "g" },
-            { nombre: "Piña natural", cantidad: 120, unidad: "g" }
-        ],
-        verduras: [
-            { nombre: "Lechuga, espinaca, rúcula, canónigos", cantidad: 100, unidad: "g" },
-            { nombre: "Tomate", cantidad: 150, unidad: "g" },
-            { nombre: "Pepino, pimiento, apio, rábano", cantidad: 100, unidad: "g" },
-            { nombre: "Brócoli, coliflor, col, repollo (cocidos)", cantidad: 80, unidad: "g" },
-            { nombre: "Calabacín, berenjena, champiñón (cocidos)", cantidad: 80, unidad: "g" },
-            { nombre: "Espárragos, judías verdes (cocidos)", cantidad: 80, unidad: "g" },
-            { nombre: "Zanahoria (cocida)", cantidad: 80, unidad: "g" }
+            { nombre: "Manzana, naranja o nectarina", peso: 113, unidad: "g", cValor: 1, cTexto: "ud(s) pequeña(s)" },
+            { nombre: "Plátano / Banana", peso: 113, unidad: "g", cValor: 0.5, cTexto: "ud(s) grande(s)" },
+            { nombre: "Melocotón (durazno)", peso: 170, unidad: "g", cValor: 1, cTexto: "ud(s) mediana(s)" },
+            { nombre: "Uvas", peso: 85, unidad: "g", cValor: 17, cTexto: "ud(s) pequeña(s)" },
+            { nombre: "Fresas enteras", peso: 170, unidad: "g", cValor: 1.25, cTexto: "taza(s)" },
+            { nombre: "Arándanos o zarzamoras", peso: 110, unidad: "g", cValor: 0.75, cTexto: "taza(s)" },
+            { nombre: "Sandía en cubos", peso: 380, unidad: "g", cValor: 1.25, cTexto: "taza(s)" },
+            { nombre: "Melón en cubos", peso: 150, unidad: "g", cValor: 1, cTexto: "taza(s)" },
+            { nombre: "Kiwi", peso: 100, unidad: "g", cValor: 1, cTexto: "unidad(es)" },
+            { nombre: "Mango", peso: 155, unidad: "g", cValor: 0.5, cTexto: "taza(s) o ud(s) pequeña(s)" },
+            { nombre: "Pasas o arándanos secos", peso: 20, unidad: "g", cValor: 2, cTexto: "cda(s) sopera(s)" },
+            { nombre: "Ciruelas pasas", peso: 25, unidad: "g", cValor: 3, cTexto: "unidad(es)" },
+            { nombre: "Jugo de fruta 100% natural", peso: 120, unidad: "ml", cValor: 0.5, cTexto: "taza(s)" }
         ],
         lacteos: [
-            { nombre: "Leche desnatada o semidesnatada", cantidad: 240, unidad: "ml" },
-            { nombre: "Kéfir natural desnatado", cantidad: 240, unidad: "ml" },
-            { nombre: "Yogur natural 0% o Griego Light", cantidad: 120, unidad: "g" },
-            { nombre: "Bebida de Soja (sin azúcar)", cantidad: 240, unidad: "ml" },
-            { nombre: "Yogur de Soja (sin azúcar)", cantidad: 125, unidad: "g" }
+            { nombre: "Leche descremada o al 1%", peso: 240, unidad: "ml", cValor: 1, cTexto: "taza(s)" },
+            { nombre: "Yogur natural desnatado (0% grasa)", peso: 170, unidad: "g", cValor: 0.666, cTexto: "taza(s)" },
+            { nombre: "Leche de soja (light/natural)", peso: 240, unidad: "ml", cValor: 1, cTexto: "taza(s)" }
         ],
-        proteinas_muy_magras: [
-            { nombre: "Pechuga de pollo o pavo (cruda)", cantidad: 30, unidad: "g" },
-            { nombre: "Pescado blanco (merluza, bacalao)", cantidad: 30, unidad: "g" },
-            { nombre: "Atún / Bonito al natural (escurrido)", cantidad: 30, unidad: "g" },
-            { nombre: "Marisco (gambas, sepia, pulpo)", cantidad: 30, unidad: "g" },
-            { nombre: "Claras de huevo", cantidad: 100, unidad: "ml" },
-            { nombre: "Requesón 0% / Cottage Light", cantidad: 50, unidad: "g" },
-            { nombre: "Proteína en polvo (Whey/Soja)", cantidad: 10, unidad: "g" },
-            { nombre: "Fiambre de pavo (>90% carne)", cantidad: 30, unidad: "g" },
-            { nombre: "Seitán", cantidad: 30, unidad: "g" },
-            { nombre: "Soja texturizada (seca)", cantidad: 15, unidad: "g" },
-            { nombre: "Tiras 'No Pollo' (ej. Heura)", cantidad: 30, unidad: "g" }
+        verduras: [
+            { nombre: "Verduras cocidas (brócoli, espinaca...)", peso: 75, unidad: "g", cValor: 0.5, cTexto: "taza(s)" },
+            { nombre: "Verduras crudas (zanahoria, pepino...)", peso: 100, unidad: "g", cValor: 1, cTexto: "taza(s)" }
         ],
-        proteinas_magras: [
-            { nombre: "Ternera magra, lomo de cerdo", cantidad: 30, unidad: "g" },
-            { nombre: "Pescado azul (salmón, sardina, atún)", cantidad: 30, unidad: "g" },
-            { nombre: "Huevo entero", cantidad: 1, unidad: "unidad(es)" },
-            { nombre: "Jamón serrano o lomo (sin tocino)", cantidad: 30, unidad: "g" },
-            { nombre: "Queso fresco (Burgos) / Mozzarella light", cantidad: 30, unidad: "g" },
-            { nombre: "Tofu firme (al natural)", cantidad: 50, unidad: "g" },
-            { nombre: "Tempeh", cantidad: 30, unidad: "g" },
-            { nombre: "Edamame (con vaina)", cantidad: 50, unidad: "g" }
+        proteina_magra: [
+            { nombre: "Pollo o pavo (pechuga, sin piel)", peso: 28, unidad: "g", cValor: 1, cTexto: "trozo(s) pequeño(s) (1/3 palma)" },
+            { nombre: "Carne de res magra (lomo, solomillo)", peso: 28, unidad: "g", cValor: 1, cTexto: "trozo(s) (tamaño caja de fósforos)" },
+            { nombre: "Pescados blancos (merluza, bacalao)", peso: 28, unidad: "g", cValor: 1, cTexto: "trozo(s) pequeño(s) (1/3 palma)" },
+            { nombre: "Atún al natural (escurrido)", peso: 28, unidad: "g", cValor: 0.25, cTexto: "taza(s)" },
+            { nombre: "Mariscos (camarón, langostino)", peso: 28, unidad: "g", cValor: 4.5, cTexto: "unidad(es) mediana(s)" },
+            { nombre: "Claras de huevo", peso: 60, unidad: "g", cValor: 2, cTexto: "unidad(es) grande(s)" },
+            { nombre: "Requesón (Cottage) o Ricota light", peso: 55, unidad: "g", cValor: 0.25, cTexto: "taza(s)" }
+        ],
+        proteina_media: [
+            { nombre: "Huevo entero", peso: 50, unidad: "g", cValor: 1, cTexto: "ud(s) mediana(s)/grande(s)" },
+            { nombre: "Carne res/cerdo magro estándar", peso: 28, unidad: "g", cValor: 1, cTexto: "trozo(s) pequeño(s) (1/3 palma)" },
+            { nombre: "Quesos bajos en grasa (mozzarella, feta)", peso: 28, unidad: "g", cValor: 1, cTexto: "dado(s) o tajada(s) fina(s)" },
+            { nombre: "Tofu", peso: 113, unidad: "g", cValor: 0.5, cTexto: "taza(s)" }
         ],
         grasas: [
-            { nombre: "Aceite de Oliva Virgen Extra (AOVE)", cantidad: 5, unidad: "ml" },
-            { nombre: "Mantequilla o Ghee", cantidad: 5, unidad: "g" },
-            { nombre: "Aguacate", cantidad: 30, unidad: "g" },
-            { nombre: "Nueces, pecanas, macadamias", cantidad: 15, unidad: "g" },
-            { nombre: "Almendras, avellanas, pistachos", cantidad: 15, unidad: "g" },
-            { nombre: "Semillas (chía, lino, sésamo)", cantidad: 15, unidad: "g" },
-            { nombre: "Cacahuetes (maní)", cantidad: 15, unidad: "g" },
-            { nombre: "Crema de cacahuete/almendra (100%)", cantidad: 9, unidad: "g" },
-            { nombre: "Aceitunas", cantidad: 30, unidad: "g" },
-            { nombre: "Chocolate negro (>85% cacao)", cantidad: 10, unidad: "g" }
+            { nombre: "Aceite (oliva, canola, girasol, aguacate)", peso: 5, unidad: "ml", cValor: 1, cTexto: "cdta(s)" },
+            { nombre: "Aguacate", peso: 28, unidad: "g", cValor: 2, cTexto: "cda(s) sopera(s)" },
+            { nombre: "Almendras, anacardos, avellanas", peso: 8, unidad: "g", cValor: 6, cTexto: "unidad(es) entera(s)" },
+            { nombre: "Cacahuetes (maní)", peso: 10, unidad: "g", cValor: 10, cTexto: "unidad(es)" },
+            { nombre: "Nueces", peso: 7, unidad: "g", cValor: 4, cTexto: "mitades" },
+            { nombre: "Semillas (lino, chía, calabaza, sésamo)", peso: 10, unidad: "g", cValor: 1, cTexto: "cda(s) sopera(s)" },
+            { nombre: "Mantequilla de maní o almendra", peso: 8, unidad: "g", cValor: 1.5, cTexto: "cdta(s)" },
+            { nombre: "Aceitunas (negras o verdes)", peso: 35, unidad: "g", cValor: 1, cTexto: "ración (8 negras o 10 verdes)" },
+            { nombre: "Mantequilla", peso: 5, unidad: "g", cValor: 1, cTexto: "cdta(s)" },
+            { nombre: "Mayonesa regular", peso: 5, unidad: "g", cValor: 1, cTexto: "cdta(s)" },
+            { nombre: "Mayonesa baja en grasa", peso: 15, unidad: "g", cValor: 1, cTexto: "cda(s) sopera(s)" }
         ]
     };
 
@@ -328,42 +324,70 @@
         selectSus.innerHTML = '<option value="">-- Elige el sustituto --</option>';
 
         if (grupo && baseDatos[grupo]) {
-            baseDatos[grupo].forEach(item => {
+            baseDatos[grupo].forEach((item, index) => {
                 let opt1 = document.createElement("option");
-                opt1.value = item.cantidad;
+                opt1.value = index; 
                 opt1.textContent = item.nombre;
                 selectOri.appendChild(opt1);
 
                 let opt2 = document.createElement("option");
-                opt2.value = item.cantidad;
-                opt2.setAttribute("data-unidad", item.unidad);
+                opt2.value = index;
                 opt2.textContent = item.nombre;
                 selectSus.appendChild(opt2);
             });
         }
     }
 
+    // Convierte decimales a fracciones comunes para una lectura más natural
+    function decimalAFraccion(decimal) {
+        if (!decimal) return "";
+        const entero = Math.floor(decimal);
+        const frac = decimal - entero;
+        let fracStr = "";
+        
+        if (Math.abs(frac - 0.25) < 0.05) fracStr = "1/4";
+        else if (Math.abs(frac - 0.33) < 0.05) fracStr = "1/3";
+        else if (Math.abs(frac - 0.5) < 0.05) fracStr = "1/2";
+        else if (Math.abs(frac - 0.66) < 0.05) fracStr = "2/3";
+        else if (Math.abs(frac - 0.75) < 0.05) fracStr = "3/4";
+        else if (Math.abs(frac - 0) < 0.05) fracStr = "";
+        else return parseFloat(decimal.toFixed(1)); 
+
+        if (entero > 0 && fracStr) return `${entero} ${fracStr}`;
+        if (entero > 0 && !fracStr) return `${entero}`;
+        if (entero === 0 && fracStr) return fracStr;
+        return parseFloat(decimal.toFixed(1));
+    }
+
     function calcularEquivalencia() {
+        const grupo = document.getElementById("grupo").value;
         const selectSus = document.getElementById("alimentoSustituto");
         const intercambios = parseFloat(document.getElementById("intercambios").value);
+        
         const resBox = document.getElementById("resultado");
         const valRes = document.getElementById("valor-resultado");
         const textPost = document.getElementById("texto-post");
+        const medCasera = document.getElementById("medida-casera");
 
-        if (!selectSus.value || isNaN(intercambios) || intercambios <= 0) {
+        if (selectSus.value === "" || isNaN(intercambios) || intercambios <= 0) {
             alert("Por favor, selecciona los alimentos y el número de intercambios.");
             return;
         }
 
-        const nombreSus = selectSus.options[selectSus.selectedIndex].text;
-        const cantBase = selectSus.value;
-        const unidad = selectSus.options[selectSus.selectedIndex].getAttribute("data-unidad");
+        const alimento = baseDatos[grupo][selectSus.value];
         
-        const total = (cantBase * intercambios).toFixed(1).replace(/\.0$/, '');
+        // Cálculo de gramos/ml
+        const totalGramos = Number((alimento.peso * intercambios).toFixed(1));
+        
+        // Cálculo de medida casera
+        const totalCaseraDecimal = alimento.cValor * intercambios;
+        const caseraFormateada = decimalAFraccion(totalCaseraDecimal);
 
         resBox.style.display = "block";
-        valRes.innerText = `${total} ${unidad}`;
-        textPost.innerText = `de ${nombreSus}`;
+        valRes.innerText = `${totalGramos} ${alimento.unidad}`;
+        textPost.innerText = `de ${alimento.nombre}`;
+        
+        medCasera.innerHTML = `Medida en casa: <br><span style="font-size:1.3rem;">🥄 ${caseraFormateada} ${alimento.cTexto}</span>`;
     }
 </script>
 
