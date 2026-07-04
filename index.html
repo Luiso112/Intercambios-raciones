@@ -207,8 +207,8 @@
                 <option value="frutas">🍎 Frutas</option>
                 <option value="lacteos">🥛 Lácteos Desnatados / Bajos en grasa</option>
                 <option value="verduras">🥦 Verduras sin Almidón</option>
-                <option value="proteina_magra">🥩 Proteína Muy Magra</option>
-                <option value="proteina_media">🥩 Proteína Magra</option>
+                <option value="proteina_muy_magra">🥩 Proteína Muy Magra</option>
+                <option value="proteina_magra">🥩 Proteína Magra</option>
                 <option value="grasas">🥑 Grasas</option>
             </select>
         </div>
@@ -287,6 +287,7 @@
             { nombre: "Verduras crudas (zanahoria, pepino...)", peso: 100, unidad: "g", cValor: 1, cTexto: "taza(s)" }
         ],
         proteina_muy_magra: [
+            { nombre: "Proteína Whey (85% pureza)", peso: 8, unidad: "g", cValor: 2, cTexto: "cdta(s) colmada(s)" },
             { nombre: "Pollo o pavo (pechuga, sin piel)", peso: 28, unidad: "g", cValor: 1, cTexto: "trozo(s) pequeño(s) (1/3 palma)" },
             { nombre: "Carne de res magra (lomo, solomillo)", peso: 28, unidad: "g", cValor: 1, cTexto: "trozo(s) (tamaño caja de fósforos)" },
             { nombre: "Pescados blancos (merluza, bacalao)", peso: 28, unidad: "g", cValor: 1, cTexto: "trozo(s) pequeño(s) (1/3 palma)" },
@@ -339,7 +340,6 @@
         }
     }
 
-    // Convierte decimales a fracciones comunes para una lectura más natural
     function decimalAFraccion(decimal) {
         if (!decimal) return "";
         const entero = Math.floor(decimal);
@@ -377,10 +377,8 @@
 
         const alimento = baseDatos[grupo][selectSus.value];
         
-        // Cálculo de gramos/ml
         const totalGramos = Number((alimento.peso * intercambios).toFixed(1));
         
-        // Cálculo de medida casera
         const totalCaseraDecimal = alimento.cValor * intercambios;
         const caseraFormateada = decimalAFraccion(totalCaseraDecimal);
 
@@ -394,5 +392,3 @@
 
 </body>
 </html>
-
-```
